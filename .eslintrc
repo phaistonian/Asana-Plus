@@ -1,0 +1,19 @@
+{
+  "extends": "phaistos-networks",
+  "rules": {
+    "react/no-danger": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "globals": {
+    "google": true
+  }
+}
+

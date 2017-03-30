@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/index.js',
+    index: './src/js.js',
     background: './src/background.js',
   },
 
@@ -40,8 +40,8 @@ module.exports = {
         include: /.\//,
         exclude: /.\/dist/,
         loader: ExtractTextPlugin.extract({
-          notExtractLoader: 'style-loader',
-          loader: ['css-loader', 'stylus-loader?{"resolve url":1}'],
+          fallback: 'style-loader',
+          use: ['css-loader', 'stylus-loader?{"resolve url":1}'],
         }),
       },
     ],
