@@ -3,5 +3,47 @@
   "version": "1.0.0",
   "description": "Asana Plus is an extension aimed to extend Asana.",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "git pull && yarn && webpack && open test.html && npm run watch",
+    "watch": "webpack --watch",
+    "build": "webpack && npm version patch && gulp && open https://chrome.google.com/webstore/developer/dashboard && open ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phaistos-networks/Asana-Plus.git"
+  },
+  "author": "George Papadakis",
+  "homepage": "https://github.com/phaistos-networks/Asana-Plus",
+  "devDependencies": {
+    "babel-core": "*",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "*",
+    "babel-plugin-react-transform": "*",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.13.1",
+    "eslint-config-phaistos-networks": "^1.2.9",
+    "eslint-loader": "*",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0",
+    "estraverse-fb": "^1.3.1",
+    "extract-text-webpack-plugin": "beta",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-bump": "*",
+    "gulp-cheerio": "^0.6.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-rimraf": "^0.2.0",
+    "gulp-svgmin": "^1.2.2",
+    "gulp-svgstore": "^6.0.0",
+    "gulp-zip": "*",
+    "react-lite": "^0.15.11",
+    "style-loader": "^0.13.1",
+    "stylus-loader": "git://github.com/phaistonian/stylus-loader.git",
+    "webpack": "beta"
+  }
 }
