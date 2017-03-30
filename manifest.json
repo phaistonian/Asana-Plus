@@ -1,0 +1,44 @@
+{
+  "name":          "Asana Plus",
+  "description":   "Enhance Asana with extra features: upload images by pasting, desktop notifications, shortcuts & more.",
+  "short_name":   "Asana Plus",
+  "version":        "0.4.7",
+
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "js.js" ],
+      "css": [ "css.css"],
+      "matches":  ["https://app.asana.com/*"],
+      "run_at": "document_end"
+   } ],
+
+   "permissions": [
+        "tabs",
+        "https://app.asana.com/*",
+        "notifications",
+        "alarms",
+        "storage"
+    ],
+
+    "web_accessible_resources": ["asana-plus.js", "asana-plus-notifications.js", "door.mp3"],
+    "update_url": "http://clients2.google.com/service/update2/crx",
+    "manifest_version": 2,
+
+    "icons": {
+	 "48"	: "/icons/48x48.png",
+	 "96"	: "/icons/96x96.png",
+      "128" : "/icons/128x128.png"
+	},
+
+  "page_action": {
+    "default_icon": {
+      "19": "/icons/default/19x19.png",
+      "38": "/icons/default/38x38.png"
+    },
+    "default_title": "Asana Plus"
+  },
+
+  "background": {
+      "scripts": ["background.js"]
+  }
+}
