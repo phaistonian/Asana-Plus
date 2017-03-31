@@ -1,6 +1,7 @@
 *.zip
 dist
 yarn.lock
+.DS_Store
 
 # Logs
 logs
