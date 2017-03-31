@@ -1,19 +1,18 @@
-chrome.extension.onMessage.addListener(function(payload, sender) {
+chrome.extension.onMessage.addListener((payload, sender) => {
+  const tab = sender.tab;
 
-	var tab = sender.tab;
+  if (!payload) {
+    return;
+  }
 
-	if (!payload) {
-		return;
-	}
+  switch (payload.action) {
 
-	switch (payload.action) {
+    case 'showPageAction':
+      chrome.pageAction.show(tab.id);
+      break;
 
-		case 'showPageAction':
-			chrome.pageAction.show(tab.id);
-			break;
-
-		case 'focusInAsanaWindow':
-			chrome.tabs.update(tab.id, {selected: true});
-			break;
-	}
+    case 'focusInAsanaWindow':
+      chrome.tabs.update(tab.id, { selected: true });
+      break;
+  }
 });
