@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "git pull && yarn && webpack && open test.html && npm run watch",
+    "start": "git pull && yarn && webpack && yarn watch",
     "watch": "webpack --watch",
     "lint": "eslint src",
     "build": "webpack && npm version patch && gulp && open https://chrome.google.com/webstore/developer/dashboard && open ."
@@ -48,6 +48,7 @@
     "webpack": "beta"
   },
   "dependencies": {
-    "babel-preset-env": "^1.3.2"
+    "babel-preset-env": "^1.3.2",
+    "yarn": "^0.21.3"
   }
 }

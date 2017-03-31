@@ -75,8 +75,9 @@ TODO
         file.lastModifiedDate = +new Date();
         file.fileSize = file.size;
 
-			// Thanks ASANA for this
-        hi._mock_files = [file];
+			 // Thanks ASANA for this
+// eslint-disable-next-line
+      hi._mock_files = [file];
 
         hi.onchange({
           type: 'change',
@@ -96,7 +97,8 @@ TODO
 
 	// Search (ctrl+space)
     if (event.ctrlKey && event.keyCode === 32) {
-      if (tempItem = document.querySelector('#nav_search_input')) {
+      const tempItem = document.querySelector('#nav_search_input');
+      if (tempItem) {
         console.log('Focusing on search');
         tempItem.focus();
         return;
@@ -142,7 +144,8 @@ TODO
 
 	// Quick add
     if ((event.metaKey || (event.ctrlKey && event.keyCode == 17)) && event.keyCode == 13) {
-      if (button = document.querySelector('#quickadd_ok')) {
+      const button = document.querySelector('#quickadd_ok');
+      if (button) {
         button.click();
       }
     }
@@ -325,7 +328,7 @@ TODO
           return 0;
         }
 
-        return parseInt(Math.random() * 10);
+        // return parseInt(Math.random() * 10);
       } else {
         const hasNewNotifications = !!document.querySelector('.topbar-notificationsButton.has-newNotifications');
 
@@ -364,10 +367,13 @@ TODO
       const cnt = currentCount;
 
       if (can) {
-        can = c = null;
+        can = null;
+        c = null;
       }
 
-      can = document.createElement('canvas'), canvas_temp = document.createElement('canvas');
+      can = document.createElement('canvas');
+      // eslint-disable-next-line
+      const canvas_temp = document.createElement('canvas');
 
       can.setAttribute('width', 16);
       can.setAttribute('height', 16);
@@ -414,7 +420,8 @@ TODO
 		// Replace it
       function replaceIcon () {
         getFavElement().setAttribute('href', can.toDataURL('image/png'));
-        can = c = null;
+        can = null;
+        c = null;
       }
 
       function updateInboxLink () {

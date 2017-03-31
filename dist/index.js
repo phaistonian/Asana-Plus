@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,18 +81,16 @@
     return;
   }
 
-  var s = void 0,
-      sn = void 0,
-      i = void 0;
+  let s, sn, i;
 
   if (location.href.indexOf('asanaPlusNotifications') !== -1) {
     sn = document.createElement('script');
-    sn.src = chrome.extension.getURL('asana-plus-notifications.js');
+    sn.src = chrome.extension.getURL('dist/asana-plus-notifications.js');
 
     document.body.appendChild(sn);
   } else {
     s = document.createElement('script'), sn;
-    s.src = chrome.extension.getURL('asana-plus.js');
+    s.src = chrome.extension.getURL('dist/asana-plus.js');
     document.body.appendChild(s);
 
     i = document.createElement('iframe');
@@ -128,7 +126,9 @@
 
 /***/ }),
 /* 2 */,
-/* 3 */
+/* 3 */,
+/* 4 */,
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);

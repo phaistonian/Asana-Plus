@@ -12,12 +12,12 @@
 
   if (location.href.indexOf('asanaPlusNotifications') !== -1) {
     sn = document.createElement('script');
-    sn.src = chrome.extension.getURL('asana-plus-notifications.js');
+    sn.src = chrome.extension.getURL('dist/asana-plus-notifications.js');
 
     document.body.appendChild(sn);
   } else {
     s = document.createElement('script'), sn;
-    s.src = chrome.extension.getURL('asana-plus.js');
+    s.src = chrome.extension.getURL('dist/asana-plus.js');
     document.body.appendChild(s);
 
     i = document.createElement('iframe');

@@ -5,6 +5,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     index: ['./src/index.styl', './src/index.js'],
+    'asana-plus': './src/asana-plus.js',
+    'asana-plus-notifications': './src/asana-plus-notifications.js',
     background: './src/background.js',
   },
 
