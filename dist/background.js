@@ -63,35 +63,36 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 chrome.extension.onMessage.addListener(function (payload, sender) {
+  var tab = sender.tab;
 
-	var tab = sender.tab;
+  if (!payload) {
+    return;
+  }
 
-	if (!payload) {
-		return;
-	}
+  switch (payload.action) {
 
-	switch (payload.action) {
+    case 'showPageAction':
+      chrome.pageAction.show(tab.id);
+      break;
 
-		case 'showPageAction':
-			chrome.pageAction.show(tab.id);
-			break;
-
-		case 'focusInAsanaWindow':
-			chrome.tabs.update(tab.id, { selected: true });
-			break;
-	}
+    case 'focusInAsanaWindow':
+      chrome.tabs.update(tab.id, { selected: true });
+      break;
+  }
 });
 
 /***/ })
-/******/ ]);
+
+/******/ });

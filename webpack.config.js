@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/js.js',
+    index: ['./src/index.styl', './src/index.js'],
     background: './src/background.js',
   },
 
@@ -49,7 +49,7 @@ module.exports = {
 
   plugins: [
     new ExtractTextPlugin({
-      filename: 'index.css',
+      filename: '[name].css',
       allChunks: true,
     }),
 

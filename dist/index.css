@@ -1,0 +1,241 @@
+textarea[id*="TODAY"] {
+  color: #009;
+  text-shadow: 0 0 10px #ff0;
+}
+body.asana-plus-expand .asana-plus-active-area {
+  position: fixed;
+  font-size: 2.85vmin;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  padding: 20px;
+  background: #fff !important;
+  z-index: 99999998 !important;
+  padding-left: 20% !important;
+  padding-right: 20% !important;
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
+  max-height: auto !important;
+  height: 100% !important;
+  overflow: auto !important;
+  border: 10px solid #008bd9;
+}
+body.asana-plus-expand .asana-plus-active-area:before {
+  content: "Press SHIFT+CTRL (or TAB) to go back to normal view";
+  display: block;
+  padding: 4px 10px;
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-size: 10px;
+  background: #008bd9 !important;
+  color: #fff;
+  border-radius: 2px;
+  z-index: 99999999;
+  line-height: 1em !important;
+  opacity: 0.7;
+}
+body.asana-plus-expand #center_pane_container,
+body.asana-plus-expand #bottom-bar-wrapper {
+  z-index: 0;
+}
+/* Handle images */
+.asset-thumbnail-image {
+  max-height: 150px;
+  transition: max-width 0.3s ease-in-out;
+}
+.asset-thumbnail-image:hover {
+  max-height: 100%;
+}
+#quickadd_ok::after {
+  content: " (\2318   + Enter)";
+  opacity: 0.7;
+  color: #fff;
+  text-shadow: none;
+  display: inline-block;
+  margin-left: 5px;
+  font-weight: normal;
+}
+#right_pane__contents .property.description .hotkey-hinted-string::after {
+  content: "SHIFT+CTRL to edit it full";
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+}
+/*
+
+#navigation_dock_domain_view_main .photo-atm-and-feed .list-item .label-text span::after {
+	top: 2px;
+	opacity: 0.5;
+	font-weight: normal;
+	content: 'ALT+1';
+	display: inline-block;
+	margin-left: 10px;
+	font-size: 90%;
+	}
+*/
+#center-pane-header .header-name {
+  font-size: 25px !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/*
+.inbox-thread.unread.selectable.selected {
+    animation-duration: 0.0001s !important;
+    animation-name: onSelectInboxItem !important;
+}*/
+code {
+  background: #fffad8;
+  padding: 1px 4px !important;
+  color: #800 !important;
+  display: inline-block;
+  font-family: Menlo, "input Sans", consolas, monospace !important;
+  font-size: 12px !important;
+}
+textarea,
+#collapsed_label_followers {
+  animation-duration: 0.001s !important;
+  animation-name: nodeInsert !important;
+}
+.is-followup {
+  color: #8a0000 !important;
+}
+.is-consider-prompt {
+  font-style: italic !important;
+}
+.comment-content li,
+div[contenteditable] li {
+  margin: 0.5em 0;
+}
+.comment-content li:first-child,
+div[contenteditable] li:first-child {
+  margin-top: 0;
+}
+.comment-content li:last-child,
+div[contenteditable] li:last-child {
+  margin-bottom: 0;
+}
+.small-feed-story-group .feed-story {
+  position: relative;
+}
+.small-feed-story-group .inline-timestamp {
+  width: 90px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  text-align: right;
+}
+.small-feed-story-group .comment-text span {
+  white-space: nowrap !important;
+}
+.small-feed-story-group .comment-content {
+  display: block;
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100% - 90px);
+}
+.small-feed-story-group .delete {
+  float: none !important;
+  position: absolute;
+  left: 20px;
+  top: 0;
+}
+@-moz-keyframes onSelectInboxItem {
+  from {
+    opacity: 0.99;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes onSelectInboxItem {
+  from {
+    opacity: 0.99;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes onSelectInboxItem {
+  from {
+    opacity: 0.99;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes onSelectInboxItem {
+  from {
+    opacity: 0.99;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes nodeInsert {
+  0% {
+    opacity: 0.999;
+  }
+  1 {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes nodeInsert {
+  0% {
+    opacity: 0.999;
+  }
+  1 {
+    opacity: 1;
+  }
+}
+@-o-keyframes nodeInsert {
+  0% {
+    opacity: 0.999;
+  }
+  1 {
+    opacity: 1;
+  }
+}
+@keyframes nodeInsert {
+  0% {
+    opacity: 0.999;
+  }
+  1 {
+    opacity: 1;
+  }
+}
+@-moz-keyframes nodeInsert {
+  0% {
+    opacity: 0.999;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes nodeInsert {
+  0% {
+    opacity: 0.999;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes nodeInsert {
+  0% {
+    opacity: 0.999;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes nodeInsert {
+  0% {
+    opacity: 0.999;
+  }
+  100% {
+    opacity: 1;
+  }
+}

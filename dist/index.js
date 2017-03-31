@@ -63,65 +63,77 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 (function () {
+  chrome.extension.sendMessage({ action: 'showPageAction' });
 
-	chrome.extension.sendMessage({ action: 'showPageAction' });
+  // Once will do it
+  if (window.asanaPlusAttached) {
+    return;
+  }
 
-	//Once will do it
-	if (window.asanaPlusAttached) {
-		return;
-	}
+  var s = void 0,
+      sn = void 0,
+      i = void 0;
 
-	var s, sn, i;
+  if (location.href.indexOf('asanaPlusNotifications') !== -1) {
+    sn = document.createElement('script');
+    sn.src = chrome.extension.getURL('asana-plus-notifications.js');
 
-	if (location.href.indexOf('asanaPlusNotifications') !== -1) {
+    document.body.appendChild(sn);
+  } else {
+    s = document.createElement('script'), sn;
+    s.src = chrome.extension.getURL('asana-plus.js');
+    document.body.appendChild(s);
 
-		sn = document.createElement('script');
-		sn.src = chrome.extension.getURL('asana-plus-notifications.js');
+    i = document.createElement('iframe');
+    i.id = 'asana-notifications-frame';
+    i.src = 'https://app.asana.com/0/inbox/?asanaPlusNotifications';
 
-		document.body.appendChild(sn);
-	} else {
+    i.style.cssText = 'position: absolute; right: -20px; top: 0; width: 0px; height: 0px;';
 
-		s = document.createElement('script'), sn;
-		s.src = chrome.extension.getURL('asana-plus.js');
-		document.body.appendChild(s);
+    document.body.appendChild(i);
 
-		i = document.createElement('iframe');
-		i.id = 'asana-notifications-frame';
-		i.src = 'https://app.asana.com/0/inbox/?asanaPlusNotifications';
+    document.body.dataset.audioAlertFile = chrome.extension.getURL('door.mp3');
 
-		i.style.cssText = 'position: absolute; right: -20px; top: 0; width: 0px; height: 0px;';
+    s.onload = function () {
+      s.parentNode.removeChild(s);
 
-		document.body.appendChild(i);
+      if (sn) {
+        sn.parentNode.removeChild(sn);
+      }
 
-		document.body.dataset.audioAlertFile = chrome.extension.getURL('door.mp3');
+      window.asanaPlusAttached = true;
 
-		s.onload = function () {
-
-			s.parentNode.removeChild(s);
-
-			if (sn) {
-				sn.parentNode.removeChild(sn);
-			}
-
-			window.asanaPlusAttached = true;
-
-			// One more is needed
-			i.src = i.src;
-		};
-	}
+      // One more is needed
+      i.src = i.src;
+    };
+  }
 })();
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 2 */,
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1);
+module.exports = __webpack_require__(0);
+
 
 /***/ })
 /******/ ]);
