@@ -71,9 +71,15 @@ TODO
       if (item.type.indexOf('image') != -1) {
         const file 	= item.getAsFile();
 
-        file.name 	= `Pasted-${new Date().toString().replace(/ GMT.*$/gi, '')}.png`;
-        file.lastModifiedDate = +new Date();
-        file.fileSize = file.size;
+        // Some times this fails
+        // due to the fact that file is a read only field
+        try {
+          file.name = `Pasted-${new Date().toString().replace(/ GMT.*$/gi, '')}.png`;
+          file.lastModifiedDate = +new Date();
+          file.fileSize = file.size;
+        } catch (error) {
+          console.log('Error');
+        }
 
 			 // Thanks ASANA for this
 // eslint-disable-next-line
