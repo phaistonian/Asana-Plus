@@ -8,7 +8,7 @@
     "start": "git pull && yarn && webpack && yarn watch",
     "watch": "webpack --watch",
     "lint": "eslint src",
-    "build": "webpack && npm version patch && gulp && open https://chrome.google.com/webstore/developer/dashboard && open . && git push"
+    "build": "webpack && npm version minor && gulp && open https://chrome.google.com/webstore/developer/dashboard && open . && git push"
   },
   "repository": {
     "type": "git",
