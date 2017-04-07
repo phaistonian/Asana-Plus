@@ -39,28 +39,6 @@ TODO
     false
   );
 
-  // Track clicks on inbox items to close notifications
-  // inbox-thread unread selectable selected  inbox-archive-content
-  // document.addEventListener('webkitAnimationStart', function (event) {
-
-  //  var t, id, notificationsSeen;
-
-  //  console.log('edw', event.animationName)
-  //  if (event.animationName == 'onSelectInboxItem') {
-
-  //    t = event.target,
-  //      id = t.id.replace(/__notification_view_/gi, '');
-
-  //      console.log(t)
-
-  //    notificationsSeen = localStorage['asana-plus-notifications-notified'] ? JSON.parse(localStorage['asana-plus-notifications-notified']) : {};
-  //    notificationsSeen[id] = true;
-  //    localStorage['asana-plus-notifications-notified'] = JSON.stringify(localStorage['asana-plus-notifications-notified']);
-
-  //    postToNotificationsFrame('update_notificationSeen');
-  //  }
-  // });
-
   // Upload by pasting
   document.addEventListener('paste', event => {
     let hi = document.querySelectorAll('.hidden-file-input, .AddAttachmentsButton-hiddenFileInput');
@@ -114,125 +92,130 @@ TODO
   document.addEventListener(
     'keydown',
     event => {
-      let button, tempItem, closeDialogElement;
+      try {
+        let button, tempItem, closeDialogElement;
 
-      // Search (ctrl+space)
-      if (event.ctrlKey && event.keyCode === 32) {
-        const tempItem = document.querySelector('#nav_search_input');
-        if (tempItem) {
-          console.log('Focusing on search');
-          tempItem.focus();
+        // Search (ctrl+space)
+        if (event.ctrlKey && event.keyCode === 32) {
+          const tempItem = document.querySelector('#nav_search_input');
+
+          if (tempItem) {
+            console.log('Focusing on search');
+            tempItem.focus();
+            return;
+          }
+        }
+
+        // Switcher
+        // TODO: This does not work if no scollable contents are found
+        if (event.altKey && event.keyCode > 48 && event.keyCode < 52) {
+          let item;
+
+          if (window.__inReactMode) {
+            item = ([].slice
+              .call(document.querySelectorAll('.topbar a'))
+              .slice(1, 3) || [])[event.keyCode - 49];
+          } else {
+            item = (document.querySelectorAll(
+              '#navigation_dock_domain_view_main .photo-atm-and-feed .list-item'
+            ) || [])[event.keyCode - 49];
+          }
+
+          if (item) {
+            item.click();
+          }
+
           return;
         }
-      }
 
-      // Switcher
-      // TODO: This does not work if no scollable contents are found
-      if (event.altKey && event.keyCode > 48 && event.keyCode < 52) {
-        let item;
+        // Close dialoges
+        // Has to be pressed twice apparently cause something is blocking it
+        if (event.keyCode === 27) {
+          closeDialogElement = document.querySelector('#dialog_view_delete') ||
+            document.querySelector('.dialog-closeButton');
 
+          if (closeDialogElement) {
+            closeDialogElement.click();
+          }
+        }
+
+        // Toggle sidebar
         if (window.__inReactMode) {
-          item = ([].slice
-            .call(document.querySelectorAll('.topbar a'))
-            .slice(1, 3) || [])[event.keyCode - 49];
-        } else {
-          item = (document.querySelectorAll(
-            '#navigation_dock_domain_view_main .photo-atm-and-feed .list-item'
-          ) || [])[event.keyCode - 49];
+          if (document.querySelector('.topbar-navButton')) {
+            document
+              .querySelector('.topbar-navButton')
+              .setAttribute('title', 'Command (or ctrl) + .');
+          }
+          if ((event.metaKey || event.ctrlKey) && event.keyCode === 190) {
+            document.querySelector('.topbar-navButton').click();
+          }
         }
 
-        if (item) {
-          item.click();
+        // Quick add
+        if (
+          (event.metaKey || (event.ctrlKey && event.keyCode == 17)) &&
+          event.keyCode == 13
+        ) {
+          const button = document.querySelector('#quickadd_ok');
+          if (button) {
+            button.click();
+          }
         }
 
-        return;
-      }
-
-      // Close dialoges
-      // Has to be pressed twice apparently cause something is blocking it
-      if (event.keyCode === 27) {
-        closeDialogElement = document.querySelector('#dialog_view_delete') ||
-          document.querySelector('.dialog-closeButton');
-
-        if (closeDialogElement) {
-          closeDialogElement.click();
+        // Toggle expander (shift+ctrl)
+        if (
+          event.shiftKey &&
+          event.keyCode == 17 &&
+          isValidArea(document.activeElement)
+        ) {
+          if (!document.activeElement.isExpanded) {
+            showArea();
+          } else {
+            hideArea();
+          }
         }
-      }
 
-      // Toggle sidebar
-      if (window.__inReactMode) {
-        if (document.querySelector('.topbar-navButton')) {
-          document
-            .querySelector('.topbar-navButton')
-            .setAttribute('title', 'Command (or ctrl) + .');
-        }
-        if ((event.metaKey || event.ctrlKey) && event.keyCode === 190) {
-          document.querySelector('.topbar-navButton').click();
-        }
-      }
-
-      // Quick add
-      if (
-        (event.metaKey || (event.ctrlKey && event.keyCode == 17)) &&
-        event.keyCode == 13
-      ) {
-        const button = document.querySelector('#quickadd_ok');
-        if (button) {
-          button.click();
-        }
-      }
-
-      // Toggle expander (shift+ctrl)
-      if (
-        event.shiftKey &&
-        event.keyCode == 17 &&
-        isValidArea(document.activeElement)
-      ) {
-        if (!document.activeElement.isExpanded) {
-          showArea();
-        } else {
+        // tabl = hi
+        if (
+          event.keyCode === 9 &&
+          document.body.classList.contains('asana-plus-expand')
+        ) {
           hideArea();
         }
-      }
 
-      // tabl = hi
-      if (
-        event.keyCode === 9 &&
-        document.body.classList.contains('asana-plus-expand')
-      ) {
-        hideArea();
-      }
+        // Esc too (not working now)
+        if (
+          event.keyCode == 27 &&
+          document.body.classList.contains('asana-plus-expand')
+        ) {
+          event.preventDefault();
+          event.stopPropagation();
+          hideArea();
+        }
 
-      // Esc too (not working now)
-      if (
-        event.keyCode == 27 &&
-        document.body.classList.contains('asana-plus-expand')
-      ) {
-        event.preventDefault();
-        event.stopPropagation();
-        hideArea();
-      }
+        function showArea() {
+          document.activeElement.isExpanded = true;
+          document.activeElement.classList.add('asana-plus-active-area');
+          document.body.classList.add('asana-plus-expand');
+        }
 
-      function showArea() {
-        document.activeElement.isExpanded = true;
-        document.activeElement.classList.add('asana-plus-active-area');
-        document.body.classList.add('asana-plus-expand');
-      }
+        function hideArea() {
+          document.activeElement.isExpanded = false;
+          document.activeElement.classList.remove('asana-plus-active-area');
+          document.body.classList.remove('asana-plus-expand');
+        }
 
-      function hideArea() {
-        document.activeElement.isExpanded = false;
-        document.activeElement.classList.remove('asana-plus-active-area');
-        document.body.classList.remove('asana-plus-expand');
-      }
-
-      function isValidArea(element) {
-        return element &&
-          (element.id ===
-            'property_sheet:details_property_sheet_field:description' ||
-            // Ignore this for now (buggy)
-            (0 &&
-              element.contentEditable &&
-              element.classList.contains('generic-input')));
+        function isValidArea(element) {
+          return element &&
+            (element.id ===
+              'property_sheet:details_property_sheet_field:description' ||
+              // Ignore this for now (buggy)
+              (0 &&
+                element.contentEditable &&
+                element.classList.contains('generic-input')));
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     false
@@ -516,14 +499,14 @@ TODO
         return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAKCAYAAACE2W/HAAAAAXNSR0IArs4c6QAAAcZJREFUKBVdUU1rE1EUPffOZBrbaUlrtSJiitg0JiBBCBV0U/AvNAtxIW7EH2BDd9kIWgXBtXRXKo1QsRvddNGvnQvFmEqFahW3Y9rUj8y8e71xY/W9xfvgnMM55xJshfdfH/c5vEaQSRUZAQFEHCl4Uzo6vzdz9kMXd3hR5mFzFBK8JMIJuGTNSB+hUAVOEnsTYK9XO8n1b9Wx511icRmn8QNtn2KqwtMBcUmpdTu/c1gVtUaQCYOnxO4OoMunFimNGKvk44Vv4k+0Ez9uzZz7S3q03XM0kWEnKBPzGXWSwmKdv0zh58Az3DJHXy0NcKzWCF1fekpZrljGMYKOAN6w2e41qwdwnZ0o+6aESsUZiWwrDd3dLkrASySahSavjPBWSXfN2md12mDGpMFuRt9zudEsBWEGG0Ze8cWTaVbuj11yfr+af/9PRnsMzb4rWbvc/S/3IW4qFozY9En1iEB/CbnW/6T+e1vj4vlXWVyMQp3qFTjDPOjiaHB265KmgiVyLoDKuln8BDDZOAp2vwgvRSTxbtTOjRcL1qePBZvVJkfT+Q1t709YZlNiz86yCV6wuVpzckNEL5u1OdSAdPSnmj0mHPwG6xjB97eb/jsAAAAASUVORK5CYII=';
       }
 
-      function getFavElement() {
+      function getFavElement () {
         return document.querySelector('link[rel="shortcut icon"]');
       }
     },
     false
   );
 
-  function postToNotificationsFrame(action, data) {
+  function postToNotificationsFrame (action, data) {
     if (!window.asanaNotificatonsFrame) {
       window.asanaNotificatonsFrame = document.getElementById(
         'asana-notifications-frame'
