@@ -2,7 +2,7 @@
   "name":          "Asana Plus",
   "description":   "Enhance Asana with extra features: upload images by pasting, desktop notifications, shortcuts & more.",
   "short_name":   "Asana Plus",
-  "version":        "0.8.0",
+  "version":        "0.9.2",
 
    "content_scripts": [ {
       "all_frames": true,
