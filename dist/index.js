@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,6 +73,12 @@
 "use strict";
 
 
+var _totals = __webpack_require__(2);
+
+var _totals2 = _interopRequireDefault(_totals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // eslint-disable-next-line
 (function () {
   chrome.extension.sendMessage({ action: 'showPageAction' });
@@ -80,6 +86,10 @@
   if (window.asanaPlusAttached) {
     return;
   }
+
+  (0, _totals2.default)();
+
+  let s, sn, i;
 
   if (location.href.indexOf('asanaPlusNotifications') !== -1) {
     const sn = document.createElement('script');
@@ -124,10 +134,61 @@
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 2 */,
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+const REG = /^\[(\d+?\w{1}?)\]/;
+
+const getRowValue = row => {
+  const content = row.querySelector('textarea').value;
+
+  if (content.match(REG)) {
+    const value = parseInt(RegExp.lastParen);
+    return value;
+  }
+
+  return 0;
+};
+
+const getTotalFromRows = rows => rows.reduce((acc, row) => acc + getRowValue(row), 0) || '';
+
+const updateTotals = rows => {
+  const header = document.querySelector('.details-pane-title .header-name.read-only');
+
+  if (!header) {
+    return;
+  }
+
+  const total = getTotalFromRows(rows);
+
+  header.dataset.total = total;
+};
+
+const checkForMultipleSelectedTasks = () => {
+  const selectedRows = [...document.querySelectorAll('#grid tr.grid-row-selected')];
+
+  if (selectedRows.length > 1) {
+    updateTotals(selectedRows);
+  }
+};
+
+const init = () => {
+  document.addEventListener('mouseup', checkForMultipleSelectedTasks);
+};
+
+exports.default = init;
+
+/***/ }),
 /* 3 */,
 /* 4 */,
-/* 5 */
+/* 5 */,
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);

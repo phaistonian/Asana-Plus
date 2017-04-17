@@ -1,3 +1,8 @@
+.details-pane-title .header-name.read-only:before {
+  display: inline-block;
+  margin-right: 0.25rem;
+  content: "[" attr(data-total) "] ";
+}
 textarea[id*="TODAY"] {
   color: #009;
   text-shadow: 0 0 10px #ff0;
