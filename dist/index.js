@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,39 +73,36 @@
 "use strict";
 
 
+// eslint-disable-next-line
 (function () {
   chrome.extension.sendMessage({ action: 'showPageAction' });
 
-  // Once will do it
   if (window.asanaPlusAttached) {
     return;
   }
 
-  var s = void 0,
-      sn = void 0,
-      i = void 0;
-
   if (location.href.indexOf('asanaPlusNotifications') !== -1) {
-    sn = document.createElement('script');
-    sn.src = chrome.extension.getURL('asana-plus-notifications.js');
+    const sn = document.createElement('script');
+    sn.src = chrome.extension.getURL('dist/asana-plus-notifications.js');
 
     document.body.appendChild(sn);
   } else {
-    s = document.createElement('script'), sn;
-    s.src = chrome.extension.getURL('asana-plus.js');
+    const s = document.createElement('script');
+    let sn;
+
+    s.src = chrome.extension.getURL('dist/asana-plus.js');
     document.body.appendChild(s);
 
-    i = document.createElement('iframe');
+    const i = document.createElement('iframe');
     i.id = 'asana-notifications-frame';
     i.src = 'https://app.asana.com/0/inbox/?asanaPlusNotifications';
 
     i.style.cssText = 'position: absolute; right: -20px; top: 0; width: 0px; height: 0px;';
 
     document.body.appendChild(i);
-
     document.body.dataset.audioAlertFile = chrome.extension.getURL('door.mp3');
 
-    s.onload = function () {
+    s.onload = () => {
       s.parentNode.removeChild(s);
 
       if (sn) {
@@ -128,7 +125,9 @@
 
 /***/ }),
 /* 2 */,
-/* 3 */
+/* 3 */,
+/* 4 */,
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);

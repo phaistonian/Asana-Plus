@@ -255,7 +255,8 @@
         c = window.__dummyCanvas;
       } else {
         c = document.createElement('canvas');
-        c.height = c.width = 60;
+        c.height = 60;
+        c.width = 60;
         window.__dummyCanvas = c;
         document.body.appendChild(c);
         c.style.display = 'none';
