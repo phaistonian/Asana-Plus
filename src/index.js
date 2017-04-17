@@ -1,3 +1,5 @@
+import initTotals from './totals';
+
 (function () {
   chrome.extension.sendMessage({ action: 'showPageAction' });
 
@@ -5,6 +7,8 @@
   if (window.asanaPlusAttached) {
     return;
   }
+
+  initTotals();
 
   let s,
     sn,
