@@ -43,7 +43,7 @@
   ],
   "short_name": "Asana Plus",
   "update_url": "http://clients2.google.com/service/update2/crx",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "web_accessible_resources": [
     "dist/asana-plus.js",
     "dist/asana-plus-notifications.js",
