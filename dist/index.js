@@ -153,7 +153,7 @@ const getRowValue = row => {
   console.log(content);
 
   if (content.match(REG)) {
-    const value = parseInt(RegExp.lastParen).trim();
+    const value = parseInt(RegExp.lastParen.trim());
     return value;
   }
 
