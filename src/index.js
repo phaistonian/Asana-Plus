@@ -1,4 +1,6 @@
 import initTotals from './totals';
+// import initMarkdown from './markdown';
+
 // eslint-disable-next-line
 (function () {
   chrome.extension.sendMessage({ action: 'showPageAction' });

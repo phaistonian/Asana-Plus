@@ -79,6 +79,8 @@ var _totals2 = _interopRequireDefault(_totals);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import initMarkdown from './markdown';
+
 // eslint-disable-next-line
 (function () {
   chrome.extension.sendMessage({ action: 'showPageAction' });
@@ -143,13 +145,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-const REG = /^\[(\d+?\w{1}?)\]/;
+const REG = /^\[(\d+?\w{0,1})\]/;
 
 const getRowValue = row => {
   const content = row.querySelector('textarea').value;
 
+  console.log(content);
+
   if (content.match(REG)) {
-    const value = parseInt(RegExp.lastParen);
+    const value = parseInt(RegExp.lastParen).trim();
     return value;
   }
 
@@ -167,7 +171,11 @@ const updateTotals = rows => {
 
   const total = getTotalFromRows(rows);
 
-  header.dataset.total = total;
+  if (total) {
+    header.dataset.total = `[${total}] `;
+  } else {
+    Reflect.deleteProperty(header.dataset, 'total');
+  }
 };
 
 const checkForMultipleSelectedTasks = () => {
