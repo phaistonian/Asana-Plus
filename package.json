@@ -1,6 +1,6 @@
 {
   "name": "asana-plus",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Asana Plus is an extension aimed to extend Asana.",
   "main": "dist/index.js",
   "license": "MIT",
