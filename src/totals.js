@@ -2,12 +2,7 @@ const REG = /^\[(\d+?\w{0,1})\]/;
 
 const getRowValue = row => {
   const target = row.querySelector('textarea');
-
-  const content = target.nodeName === 'TEXTARA'
-    ? target.value
-    : target.textContent;
-
-  console.log(content);
+  const content = target.value;
 
   if (content.match(REG)) {
     const value = parseInt(RegExp.lastParen.trim());
@@ -46,8 +41,6 @@ const updateTotals = rows => {
       return;
     }
 
-    console.log('total', total);
-
     if (total) {
       header.dataset.total = `[${total}] `;
     } else {
@@ -60,7 +53,6 @@ const updateTotals = rows => {
 const checkForMultipleSelectedTasks = () => {
   const selectedRows = [...document.querySelectorAll('#grid tr.grid-row-selected, .itemRow--highlighted, .TaskRow--focused')];
 
-  console.log(1, selectedRows.length);
   if (selectedRows.length > 1) {
     updateTotals(selectedRows);
   }
