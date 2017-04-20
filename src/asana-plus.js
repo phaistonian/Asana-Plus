@@ -460,7 +460,8 @@ TODO
             );
           }
 
-          replaceIcon();
+          // not anymore
+          // replaceIcon();
         }
 
         if (i.complete) {
