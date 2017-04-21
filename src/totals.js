@@ -62,6 +62,13 @@ const init = () => {
   document.addEventListener('mouseup', () => {
     setTimeout(() => requestAnimationFrame(checkForMultipleSelectedTasks), 50);
   });
+
+  document.addEventListener('keyup', event => {
+    if (event.shiftKey
+      && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+      setTimeout(() => requestAnimationFrame(checkForMultipleSelectedTasks), 50);
+    }
+  });
 };
 
 export default init;
