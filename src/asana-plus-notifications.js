@@ -13,7 +13,7 @@
     thisInstanceId = Date.now(), // A uniqueID: Perhaps I should use crypto.getRandomValues(new Uint8Array(32)).join('') for more fun
     showLog 	= true;
 
-// A sanity check
+  // A sanity check
   if (latestTs && latestTs > Date.now()) {
     latestTs = Date.now();
     latestId = 0;
@@ -21,11 +21,11 @@
 
   $LOG('Initialized ...');
 
-// Unload handling
+  // Unload handling
   window.addEventListener('beforeunload', unload, false);
   window.addEventListener('unload', unload, false);
 
-// Handle incoming message
+  // Handle incoming message
   window.addEventListener('message', event => {
     let payload;
 
@@ -41,7 +41,7 @@
     }
   }, false);
 
-// Remove all notified stuff from localStorage
+  // Remove all notified stuff from localStorage
   if (notified) {
     const now = Date.now();
 
@@ -59,7 +59,7 @@
   askForNotificationPermissions();
   poll();
 
-// clean up the mess a bit
+  // clean up the mess a bit
   setInterval(() => {
     if (latestTs && (Date.now() - latestTs < 1000 * 10)) {
       return;
@@ -68,9 +68,9 @@
     location.href = 'https://app.asana.com/0/inbox/?asanaPlusNotifications';
   }, reloadEvery);
 
-// Sometimes this halts, let's fix it
+  // Sometimes this halts, let's fix it
   setInterval(() => {
-	// Don't switch if not needed (updated < 10 mins)
+    // Don't switch if not needed (updated < 10 mins)
     if (latestTs && (Date.now() - latestTs < 1000 * 10)) {
       return;
     }
@@ -83,11 +83,11 @@
   }, switchEvery);
 
   function poll () {
-	// No current instance? assign it to this
+    // No current instance? assign it to this
     if (!localStorage['asana-plus-notifications-instanceId']) {
       localStorage['asana-plus-notifications-instanceId'] = thisInstanceId;
 
-		// also read notifified from localstorage
+      // also read notifified from localstorage
       notified = localStorage['asana-plus-notifications-notified'] ? JSON.parse(localStorage['asana-plus-notifications-notified']) : {};
     }
 
@@ -115,15 +115,15 @@
         ts = entry.ts,
         acceptableDiffInMinutes = (Date.now() - ts) / 1000 / 60;
 
-		// Too short content, either being written or test
+      // Too short content, either being written or test
       if (entry.content.length < 3) {
         return;
       }
 
-		// Was && notified but this was not right
+      // Was && notified but this was not right
       if ((!notifiedPre[id] && !notified[id])
-			&& (ts > latestTs)
-			&& acceptableDiffInMinutes < 5) {
+   && (ts > latestTs)
+   && acceptableDiffInMinutes < 5) {
         $LOG(ts, latestTs, notified[id], acceptableDiffInMinutes);
 
         events.push(getDataFromElement(entry.element, id, ts));
@@ -134,7 +134,7 @@
 
           lastEvent 		= entry;
 
-				// A temp holder here to avoid dupes
+          // A temp holder here to avoid dupes
           notifiedPre[id]	= ts;
         }
 
@@ -154,7 +154,7 @@
         event.element.classList.add('notified');
       });
 
-		// Store -- though this could be an overkill
+      // Store -- though this could be an overkill
       saveNotified(notified);
     }
 
@@ -191,7 +191,7 @@
     let creatorName = getContent(creator),
       creatorLink = creator.href,
       parentTitle = getContent(parent.querySelector('.notification-title .task-name')
-			|| parent.querySelector('.notification-title'));
+   || parent.querySelector('.notification-title'));
 
     creatorIcon	= creatorIcon ? creatorIcon.style.backgroundImage : null;
     content = prependToContentBasedOnType(content, isNewTask, isHeart);
@@ -200,8 +200,8 @@
 
     if (creatorIcon) {
       creatorIcon = creatorIcon
-			.match(/url\((.*?)\)/)[1]
-			.replace(/27x27/, '60x60');
+        .match(/url\((.*?)\)/)[1]
+        .replace(/27x27/, '60x60');
     } else {
       creatorIcon = getCreatorIconByName(creatorName);
     }
@@ -217,7 +217,7 @@
     };
 
     function prependToContentBasedOnType (input, isNewTask, isHeart) {
-		// Mac only for now
+      // Mac only for now
       if (!isMac) {
         return input;
       }
@@ -272,9 +272,9 @@
       const y = c.height / 2 + c.width / 2 / 2 - 4;
 
       ctx.fillText(name,
-			x,
-			y
-		);
+        x,
+        y
+      );
 
       return c.toDataURL('image/png');
 
@@ -305,8 +305,8 @@
         element,
         ts: getTsFromElement(element),
         content: element.querySelector('.blockStoryView-storyText')
-        ? getTextContent(element.querySelector('.blockStoryView-storyText').innerHTML.replace(/<div.*?\/div>/gi, ''))
-        : '',
+          ? getTextContent(element.querySelector('.blockStoryView-storyText').innerHTML.replace(/<div.*?\/div>/gi, ''))
+          : '',
       });
     });
 
@@ -338,7 +338,7 @@
     }
   }
 
-// Helpers
+  // Helpers
   function $A (list) {
     if (list.forEach) {
       return list;
@@ -403,7 +403,7 @@
     window.NotificationNative.requestPermission();
   }
 
-// https://developer.mozilla.org/en/docs/Web/API/notification
+  // https://developer.mozilla.org/en/docs/Web/API/notification
   function notify (title, event, options) {
     askForNotificationPermissions();
 
@@ -411,24 +411,24 @@
 
     $LOG(`Notification spawned: ${title}`);
 
-	// THIS IS WRONG: Only when show register notified
-	// Since sometimes it take time to show an notification either by design
-	// or cause it's queued
-	// Let's do it at once
+    // THIS IS WRONG: Only when show register notified
+    // Since sometimes it take time to show an notification either by design
+    // or cause it's queued
+    // Let's do it at once
 
-	// notification.onshow = function () {
+    // notification.onshow = function () {
     notified[event.id] = event.ts;
     notifications[event.id] = notification;
 
     saveNotified(notified);
-	// }
+    // }
 
     notification.onclose = function () {
-		// Remove it from notifications
+      // Remove it from notifications
       delete(notifications[event.id]);
     };
 
-	/*
+    /*
 	notification.onclick = function () {
 		window.parent.focusInAsanaWindow();
 	}
@@ -442,7 +442,7 @@
   }
 
   function unload () {
-	// free for another one
+    // free for another one
     saveNotified();
     delete(localStorage['asana-plus-notifications-instanceId']);
   }
@@ -455,7 +455,7 @@
   }
   window.postToParent = postToParent;
 
-// Date parser
+  // Date parser
   let 	today 	= new Date(),
     days 		= ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     months 	= ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -495,8 +495,8 @@
           } else {
             daysDiff = thisDayOfWeek - days.indexOf(dayRepr);
 
-					// This is for cases like
-					// new Date(1431935782078) > new Date(1431935782078) and now it's monday
+            // This is for cases like
+            // new Date(1431935782078) > new Date(1431935782078) and now it's monday
             if (daysDiff < 0) {
               daysDiff = thisDayOfWeek + 7 - days.indexOf(dayRepr);
             }
@@ -525,7 +525,7 @@
 
     let result = new Date(year, month, day, hour, mins);
 
-	// TODO: This a major issue we need to tackle
+    // TODO: This a major issue we need to tackle
     if (result.getTime() > Date.now()) {
       result = new Date();
       console.error('AsanaPlusNotifications: Error, date output in future for input', input);
