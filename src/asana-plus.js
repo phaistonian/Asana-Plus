@@ -97,7 +97,7 @@ TODO
 
         // Search (ctrl+space)
         if (event.ctrlKey && event.keyCode === 32) {
-          const tempItem = document.querySelector('#nav_search_input');
+          const tempItem = document.querySelector('#topbar-search-input');
 
           if (tempItem) {
             console.log('Focusing on search');
@@ -111,15 +111,10 @@ TODO
         if (event.altKey && event.keyCode > 48 && event.keyCode < 52) {
           let item;
 
-          if (window.__inReactMode) {
-            item = ([].slice
-              .call(document.querySelectorAll('.topbar a'))
-              .slice(1, 3) || [])[event.keyCode - 49];
-          } else {
-            item = (document.querySelectorAll(
-              '#navigation_dock_domain_view_main .photo-atm-and-feed .list-item'
-            ) || [])[event.keyCode - 49];
-          }
+
+          item = ([].slice
+            .call(document.querySelectorAll('.Topbar-left a'))
+            .slice(1, 3) || [])[event.keyCode - 49];
 
           if (item) {
             item.click();
@@ -140,15 +135,15 @@ TODO
         }
 
         // Toggle sidebar
-        if (window.__inReactMode) {
-          if (document.querySelector('.topbar-navButton')) {
-            document
-              .querySelector('.topbar-navButton')
-              .setAttribute('title', 'Command (or ctrl) + .');
-          }
-          if ((event.metaKey || event.ctrlKey) && event.keyCode === 190) {
-            document.querySelector('.topbar-navButton').click();
-          }
+        if (document.querySelector('.SidebarHeader-closeIcon')) {
+          document
+            .querySelector('.SidebarHeader-closeIcon')
+            .setAttribute('title', 'Command (or ctrl) + .');
+        }
+
+        // toggle
+        if ((event.metaKey || event.ctrlKey) && event.keyCode === 190) {
+          document.querySelector('.SidebarHeader-closeIcon, .Topbar-navButton').click();
         }
 
         // Quick add
