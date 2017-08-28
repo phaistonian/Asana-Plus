@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -32,9 +32,6 @@
 /******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
 /******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
@@ -69,31 +66,9 @@
 /******/ ({
 
 /***/ 5:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-chrome.extension.onMessage.addListener((payload, sender) => {
-  const tab = sender.tab;
-
-  if (!payload) {
-    return;
-  }
-
-  switch (payload.action) {
-    case 'showPageAction':
-      chrome.pageAction.show(tab.id);
-      break;
-
-    case 'focusInAsanaWindow':
-      chrome.tabs.update(tab.id, { selected: true });
-      break;
-
-    default:
-      break;
-  }
-});
+throw new Error("Module build failed: Module failed because of a eslint error.\n\n\u001b[4m/Users/phaistonian/WWW/Asana-Plus/src/background.js\u001b[24m\n  \u001b[2m1:1\u001b[22m  \u001b[31merror\u001b[39m  Definition for rule 'jsx-a11y/img-has-alt' was not found  \u001b[2mjsx-a11y/img-has-alt\u001b[22m\n\n\u001b[31m\u001b[1m✖ 1 problem (1 error, 0 warnings)\u001b[22m\u001b[39m\n\u001b[31m\u001b[1m\u001b[22m\u001b[39m");
 
 /***/ })
 

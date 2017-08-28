@@ -1,4 +1,6 @@
 import initTotals from './totals';
+
+const ENABLE_NOTIFICATIONS = false;
 // import initMarkdown from './markdown';
 
 // eslint-disable-next-line
@@ -16,10 +18,12 @@ import initTotals from './totals';
     i;
 
   if (location.href.indexOf('asanaPlusNotifications') !== -1) {
-    const sn = document.createElement('script');
-    sn.src = chrome.extension.getURL('dist/asana-plus-notifications.js');
+    if (ENABLE_NOTIFICATIONS) {
+      const sn = document.createElement('script');
+      sn.src = chrome.extension.getURL('dist/asana-plus-notifications.js');
 
-    document.body.appendChild(sn);
+      document.body.appendChild(sn);
+    }
   } else {
     const s = document.createElement('script');
     let sn;
