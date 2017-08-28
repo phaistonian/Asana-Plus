@@ -43,7 +43,7 @@ const ENABLE_COUNTS = false;
 
   // Upload by pasting
   document.addEventListener('paste', event => {
-    let hi = document.querySelectorAll('.hidden-file-input, .AddAttachmentsButton-hiddenFileInput');
+    let hi = document.querySelectorAll('.AddAttachmentsButton-hiddenFileInput, .hidden-file-input');
 
     if (hi && hi.length) {
       // last one at all times
@@ -65,20 +65,29 @@ const ENABLE_COUNTS = false;
           file.lastModifiedDate = +new Date();
           file.fileSize = file.size;
         } catch (error) {
-          console.log('Error');
+          console.log('Error pasting', error);
         }
 
-        // Thanks ASANA for this
-        // eslint-disable-next-line
-        hi._mock_files = [file];
-
         if (!hi.onchange) {
+          console.log('Calling on change 1');
+          console.log(hi);
           if ('createEvent' in document) {
-            const evt = document.createEvent('HTMLEvents');
-            evt.initEvent('change', false, true);
-            hi.dispatchEvent(evt);
+            // const evt = document.createEvent('HTMLEvents');
+            var event = new Event('change',{
+              bubbles: true,
+              files: [file],
+            });
+
+            // evt.initEvent('change', false, true);
+            // hi.dispatchEvent(evt);
+            hi.dispatchEvent(event);
           }
         } else {
+          // Thanks ASANA for this
+          // eslint-disable-next-line
+          hi._mock_files = [file];
+
+          console.log('Calling on change 2');
           hi.onchange({
             type: 'change',
             target: hi,

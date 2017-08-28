@@ -119,14 +119,16 @@ const ENABLE_NOTIFICATIONS = false;
     s.src = chrome.extension.getURL('dist/asana-plus.js');
     document.body.appendChild(s);
 
-    const i = document.createElement('iframe');
-    i.id = 'asana-notifications-frame';
-    i.src = 'https://app.asana.com/0/inbox/?asanaPlusNotifications';
+    if (ENABLE_NOTIFICATIONS) {
+      const i = document.createElement('iframe');
+      i.id = 'asana-notifications-frame';
+      i.src = 'https://app.asana.com/0/inbox/?asanaPlusNotifications';
 
-    i.style.cssText = 'position: absolute; right: -20px; top: 0; width: 0px; height: 0px;';
+      i.style.cssText = 'position: absolute; right: -20px; top: 0; width: 0px; height: 0px;';
 
-    document.body.appendChild(i);
-    document.body.dataset.audioAlertFile = chrome.extension.getURL('door.mp3');
+      document.body.appendChild(i);
+      document.body.dataset.audioAlertFile = chrome.extension.getURL('door.mp3');
+    }
 
     s.onload = () => {
       s.parentNode.removeChild(s);
@@ -138,7 +140,7 @@ const ENABLE_NOTIFICATIONS = false;
       window.asanaPlusAttached = true;
 
       // One more is needed
-      i.src = i.src;
+      // i.src = i.src;
     };
   }
 })();
