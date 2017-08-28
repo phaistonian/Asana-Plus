@@ -3,6 +3,8 @@ TODO
 - One bell would do
  */
 
+const ENABLE_COUNTS = false;
+
 (function() {
   // Handle incoming messages from asans-plus-notiification
   window.addEventListener(
@@ -135,7 +137,7 @@ TODO
         }
 
         // Toggle sidebar
-        if (document.querySelector('.SidebarHeader-closeIcon')) {
+        if (document.querySelector('.SidebarHeader-closeIcon, .Topbar-navButton')) {
           document
             .querySelector('.SidebarHeader-closeIcon')
             .setAttribute('title', 'Command (or ctrl) + .');
@@ -143,7 +145,7 @@ TODO
 
         // toggle
         if ((event.metaKey || event.ctrlKey) && event.keyCode === 190) {
-          document.querySelector('.SidebarHeader-closeIcon, .Topbar-navButton').click();
+          document.querySelector('.SidebarHeader-closeIcon, .Topbar-navButton > svg').click();
         }
 
         // Quick add
@@ -217,6 +219,7 @@ TODO
   );
 
   // Fav & more
+  if (ENABLE_COUNTS)
   window.addEventListener(
     'load',
     event => {
